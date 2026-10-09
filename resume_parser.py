@@ -138,3 +138,27 @@ job = jobD(**job_data)
 print(job.minimum_experience)
 print(job.education_requirements)
 
+class Experience(BaseModel):
+    company: str | None = None
+    role: str | None = None
+    duration: str | None = None
+    description: str | None = None
+    skills_used: list[str] | None = None
+
+class Resume(BaseModel):
+    name: str | None = None # None means that the field is optional and can be omitted when creating an instance of the class. If a value is not provided, it will default to None.
+    email: str | None = None
+    phone: str | None = None
+    total_experience_years: float | None = None
+    experience: list[str] | None = None
+    projects: list[str] | None = None
+    education: list[str] | None = None
+    experience: list[Experience] | None = None
+    skills: list[str] | None = None
+    certifications: list[str] = []
+
+resume_schema = Resume.model_json_schema()
+
+def final_score(job, resume):
+    match_schema = MatchResult.model_json_schema()
+    prompt = f"""
