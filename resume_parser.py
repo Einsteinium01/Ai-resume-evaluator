@@ -81,3 +81,40 @@ Preferred Qualifications
 - Strong problem-solving and analytical skills
 - Excellent written and verbal communication skills
 """
+
+class jobD(BaseModel):
+
+    role: str
+    required_skills: list[str]
+    preferred_skills: list[str]
+    minimum_experience: str
+    education_requirements: list[str]
+    responsibilities: list[str]
+
+jobd_schema = jobD.model_json_schema()
+
+system_prompt = f"""
+You are an expert HR assistant.
+
+Your job is to analyze job descriptions and extract structured from them.
+Return only valid JSON matching this schema:
+{jobd_schema}
+
+IMPORTANT: 
+Do not return the schema itself
+Do not return fields like "properties", "title" or "type".
+Fill the schema with actual information extracted from the job description.
+
+If minimum_experience is not explicitly mentioned, return null.
+If information for a list is missing , retunr an empty list.
+Do not invent infirmation. Only extract what is present in the job description.
+"""
+
+user_prompt = f"""
+Analyse the following job description:
+
+{jobDescription}
+"""
+
+message_system = {"role": "system", "content": system_prompt}
+
