@@ -12,7 +12,7 @@ if not my_api_key:
     raise ValueError("GROQ_API_KEY environment variable is not set.")
 
 client = Groq(api_key=my_api_key)
-model = client.model("resume-parser")
+model = client.model("GROQ_MODEL", "openai/gpt-oss-20b")
 
 jobDescription = """
 Description
