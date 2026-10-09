@@ -118,3 +118,23 @@ Analyse the following job description:
 
 message_system = {"role": "system", "content": system_prompt}
 
+message_user = {"role": "user", "content": user_prompt}
+
+response_format = {"type": "json_object"}
+
+messages = [message_system, message_user]
+
+response = model.chat.completions.create(model=model, messages=messages, response_format=response_format)
+
+answer = response.choices[0].message.content
+
+raw_json = answer
+
+import json
+job_data=json.loads(raw_json)
+
+job = jobD(**job_data) 
+
+print(job.minimum_experience)
+print(job.education_requirements)
+
