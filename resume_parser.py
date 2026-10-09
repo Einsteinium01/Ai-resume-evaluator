@@ -84,12 +84,12 @@ Preferred Qualifications
 
 class jobD(BaseModel):
 
-    role: str
-    required_skills: list[str]
-    preferred_skills: list[str]
-    minimum_experience: str
-    education_requirements: list[str]
-    responsibilities: list[str]
+    role: str | None = None
+    required_skills: list[str] | None = None
+    preferred_skills: list[str] | None = None
+    minimum_experience: str | None = None
+    education_requirements: list[str] | None = None
+    responsibilities: list[str] | None = None
 
 jobd_schema = jobD.model_json_schema()
 
@@ -155,7 +155,6 @@ class Resume(BaseModel):
     email: str | None = None
     phone: str | None = None
     total_experience_years: float | None = None
-    experience: list[str] | None = None
     projects: list[str] | None = None
     education: list[str] | None = None
     experience: list[Experience] | None = None
