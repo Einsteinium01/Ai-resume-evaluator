@@ -164,7 +164,7 @@ class Resume(BaseModel):
 
 resume_schema = Resume.model_json_schema()
 
-def final_score(job,resume):
+def final_score(job, resume):
     match_schema = MatchResult.model_json_schema()
     prompt = f"""
     You are an HR recruiter.
@@ -202,6 +202,7 @@ def final_score(job,resume):
     response = client.chat.completions.create(model=model, messages=messages, response_format=response_format)
     data = json.loads(response.choices[0].message.content)
     return MatchResult(**data)
+
 def parse_resume(resume_text):
     system_prompt = f"""
     You are an expert resume parser.
