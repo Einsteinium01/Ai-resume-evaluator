@@ -12,7 +12,7 @@ if not my_api_key:
     raise ValueError("GROQ_API_KEY environment variable is not set.")
 
 client = Groq(api_key=my_api_key)
-model = client.model("GROQ_MODEL", "openai/gpt-oss-20b")
+model = os.getenv("GROQ_MODEL", "openai/gpt-oss-20b")
 
 jobDescription = """
 Description
@@ -124,7 +124,7 @@ response_format = {"type": "json_object"}
 
 messages = [message_system, message_user]
 
-response = model.chat.completions.create(model=model, messages=messages, response_format=response_format)
+response = client.chat.completions.create(model=model, messages=messages, response_format=response_format)
 
 answer = response.choices[0].message.content
 
